@@ -1,0 +1,37 @@
+# Copilot Instructions
+
+## Project Overview
+This is a full-stack e-commerce demo app with:
+- Node.js backend (Fastify, MongoDB, JWT, bcrypt)
+- Modular React frontend (Vite, React Router, Axios)
+- User authentication, product catalog, cart, checkout, admin features
+
+## Coding Guidelines
+- Use async/await for all async operations
+- Use Mongoose for MongoDB models
+- Use JWT for authentication (token in Authorization header)
+- Use React Context for auth state
+- Use React Router v6+ for routing
+- Use Axios for API calls
+- Store JWT in localStorage (frontend)
+- Protect routes using a ProtectedRoute component
+- Use functional React components and hooks
+- Keep backend and frontend modular and organized
+
+## Folder Structure
+- Backend: models/, controllers/, routes/
+- Frontend: src/components/, src/pages/, src/context/, src/hooks/, src/api/
+
+## Best Practices
+- Validate all user input on both backend and frontend
+- Hash passwords with bcrypt before storing
+- Never commit secrets or .env files
+- Use .gitignore to exclude node_modules, build, and env files
+- Write clear, concise commit messages
+
+## How to Use Copilot
+- When adding new features, follow the modular structure
+- When fixing bugs, check both backend and frontend for issues
+- When updating dependencies, run npm install in the correct directory
+- For new API endpoints, update both backend routes and frontend API helpers
+- For UI changes, update or add React components/pages
