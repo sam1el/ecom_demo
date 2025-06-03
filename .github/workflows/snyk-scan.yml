@@ -7,18 +7,33 @@ jobs:
       - uses: actions/checkout@master
       - name: Install dependencies
         run: npm install
-      - name: Run Snyk to check for vulnerabilities
+      - name: Run Snyk to check for vulnerabilities (code test)
         uses: snyk/actions/node@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=snyk.sarif
+          args: --sarif-file-output=snyk-code.sarif
           command: code test
-      - name: Replace security-severity undefined for license-related findings
+      - name: Run Snyk to check for vulnerabilities (test)
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk-deps.sarif
+          command: test
+      - name: Replace security-severity undefined for license-related findings (code)
         run: |
-          sed -i 's/"security-severity": "undefined"/"security-severity": "0"/g' snyk.sarif
-      - name: Upload result to GitHub Code Scanning
+          sed -i 's/"security-severity": "undefined"/"security-severity": "0"/g' snyk-code.sarif || true
+      - name: Replace security-severity undefined for license-related findings (deps)
+        run: |
+          sed -i 's/"security-severity": "undefined"/"security-severity": "0"/g' snyk-deps.sarif || true
+      - name: Upload code scan result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: snyk.sarif
+          sarif_file: snyk-code.sarif
+      - name: Upload dependency scan result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk-deps.sarif
