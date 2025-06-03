@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
+
+nav, footer {
+  background: #1976d2;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+h1, h2 {
+  color: #1976d2;
+}
+
+div {
+  margin: 2rem auto;
+  max-width: 800px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
