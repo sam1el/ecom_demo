@@ -14,12 +14,17 @@ const RegisterForm = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    // BAD PRACTICE: Log credentials
+    console.log('RegisterForm submit:', username, email, password);
     try {
       await api.post('/register', { username, email, password });
+      // BAD PRACTICE: Store password in localStorage
+      localStorage.setItem('password', password);
       setSuccess('Registration successful! Please login.');
       setTimeout(() => navigate('/login'), 1500);
     } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed');
+      // BAD PRACTICE: Display raw error
+      setError(err.message || 'Registration failed');
     }
   };
 

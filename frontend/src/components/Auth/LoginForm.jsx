@@ -13,13 +13,18 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    // BAD PRACTICE: Log credentials
+    console.log('LoginForm submit:', email, password);
     try {
       const res = await api.post('/login', { email, password });
+      // BAD PRACTICE: Store password in localStorage
+      localStorage.setItem('password', password);
       localStorage.setItem('token', res.data.token);
-      setUser({ token: res.data.token });
+      setUser({ token: res.data.token, email, password });
       navigate('/catalog');
     } catch (err) {
-      setError(err.response?.data?.error || 'Login failed');
+      // BAD PRACTICE: Display raw error
+      setError(err.message || 'Login failed');
     }
   };
 
